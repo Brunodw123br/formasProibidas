@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuboide</title>
+    <style>
+        a {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            color: rgba(180, 40, 40, 0);
+        }
+
+        body {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .voltar {
+            background-color: rgb(180, 40, 40);
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .voltar span {
+            border: 2px solid #000;
+            width: 30px;
+            position: absolute;
+        }
+
+        .voltar span:nth-child(1) {
+            width: 15px;
+            transform: rotate(-25deg);
+            left: 15%;
+            top: 40%;
+        }
+
+        .voltar span:nth-child(2) {
+            width: 15px;
+            transform: rotate(25deg);
+            left: 15%;
+            bottom: 40%;
+        }
+
+        .containerForma {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+            gap: 20px;
+        }
+
+        .containerForma input {
+            width: 40%;
+            height: calc(2vh + 1.5vw);
+            border-radius: 30px;
+            padding: 0 0 0 1vw;
+        }
+
+        .containerForma label {
+            font-size: clamp(1rem, .7vh + 1vw, 2rem);
+        }
+
+        .containerForma button {
+            width: 40%;
+            height: calc(2vh + 1.5vw);
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .imagem {
+            position: relative;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            margin: 0 auto;
+            display: flex;
+            width: 12rem;
+            height: 12rem;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border-radius: 50%;
+            border: 0.4rem solid #52c5ff;
+        }
+
+        .container[class*="1"] {
+            animation-delay: 1s;
+        }
+
+        .container[class*="2"] {
+            animation-delay: 1.3s;
+        }
+
+        .container[class*="3"] {
+            animation-delay: 1.6s;
+        }
+
+        .container[class*="4"] {
+            animation-delay: 1.9s;
+        }
+
+        .tars {
+            z-index: 0;
+            position: absolute;
+            height: 100px;
+            width: 130px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            transform-style: preserve-3d;
+            animation: rotateX3D 6s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: rotateY3D 3s ease-in infinite both;
+        }
+
+        .shape {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: -1;
+        }
+
+        .shape div {
+            display: block;
+            position: absolute;
+            text-align: center;
+        }
+
+        .container:nth-child(2) .f::after,
+        .container:nth-child(3) .f::after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            z-index: -1;
+            height: 20px;
+            background-image: radial-gradient(#54ff6e 2px, transparent 1%);
+            background-size: 20px 5px;
+            left: 0;
+            top: 20%;
+            border: 0;
+            animation: animMove 2s linear infinite alternate-reverse;
+            overflow: hidden;
+        }
+
+        .container:nth-child(2) .f::before,
+        .container:nth-child(3) .f::before {
+            position: absolute;
+            content: '';
+            width: 85%;
+            z-index: -1;
+            height: 20px;
+            left: 0;
+            top: 20%;
+            border: 0;
+            background: #181818;
+            border: 2px solid #52c5ff;
+            overflow: hidden;
+        }
+
+        .container:nth-child(1),
+        .container:nth-child(4) {
+
+            & .f: :before,
+            & .r::before,
+            & .l::before {
+                position: absolute;
+                content: '';
+                width: 95%;
+                height: 5px;
+                left: 0;
+                top: 25%;
+                border: 1px solid #52c5ff;
+                overflow: hidden;
+            }
+        }
+
+        .container:nth-child(1) .b::before,
+        .container:nth-child(4) .b::before {
+            position: absolute;
+            content: '';
+            width: 95%;
+            z-index: -1;
+            height: 5px;
+            left: 0;
+            top: 69%;
+            border: 0;
+            border: 1px solid #52c5ff;
+            overflow: hidden;
+        }
+
+        .f {
+            transform: rotateY(0deg) translateZ(15px);
+            border-radius: 2px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .b {
+            transform: rotateX(180deg) translateZ(15px);
+            border-radius: 2px;
+        }
+
+        .f,
+        .b {
+            width: 30px;
+            height: 100px;
+            background: #212121;
+            box-shadow: inset 0 0 0 2px #52c5ff;
+            border: 2px solid #52c5ff;
+        }
+
+        .l {
+            transform: rotateY(-90deg) translateZ(0px);
+            border-radius: 2px;
+        }
+
+        .r {
+            transform: rotateY(90deg) translateZ(-30px);
+            border-radius: 2px;
+        }
+
+        .l,
+        .r {
+            width: 30px;
+            height: 100px;
+            left: 15px;
+            position: relative;
+            z-index: -1;
+            background: #212121;
+            box-shadow: inset 0 0 0 2px #52c5ff;
+            border: 2px solid #52c5ff;
+        }
+
+        .t {
+            transform: rotateX(90deg) translateZ(40px);
+            border-radius: 2px;
+        }
+
+        .bot {
+            transform: rotateX(-90deg) translateZ(60px);
+            border-radius: 2px;
+        }
+
+        .t,
+        .bot {
+            width: 30px;
+            height: 30px;
+            top: 25px;
+            position: relative;
+            z-index: -1;
+            background: #212121;
+            box-shadow: inset 0 0 0 2px #52c5ff;
+            border: 2px solid #52c5ff;
+        }
+
+        @keyframes rotateY3D {
+            0% {
+                transform: translateZ(0px) rotateX(0);
+            }
+
+            50% {
+                transform: translateZ(0px) rotateX(-360deg);
+            }
+
+            100% {
+                transform: translateZ(0px) rotateX(-360deg);
+            }
+        }
+
+        @keyframes rotateX3D {
+            0% {
+                transform: translateX(0px) rotateY(0);
+            }
+
+            50% {
+                transform: translateX(0px) rotateY(180deg);
+            }
+
+            100% {
+                transform: translateX(0px) rotateY(360deg);
+            }
+        }
+
+        @keyframes animMove {
+            0% {
+                transform: translateX(20px);
+            }
+
+            100% {
+                transform: translateX(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="../index.html">
+        a
+        <div class="voltar">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </a>
+    <div class="containerForma">
+        <h2>Soma do Cubóide</h2>
+        <div class="imagem">
+            <div class="loader">
+                <div class="tars">
+                    <div class="container 1">
+                        <div class="shape">
+                            <div class="f"></div>
+                            <div class="b"></div>
+                            <div class="l"></div>
+                            <div class="r"></div>
+                            <div class="t"></div>
+                            <div class="bot"></div>
+                        </div>
+                    </div>
+                    <div class="container 2">
+                        <div class="shape">
+                            <div class="f"></div>
+                            <div class="b"></div>
+                            <div class="l"></div>
+                            <div class="r"></div>
+                            <div class="t"></div>
+                            <div class="bot"></div>
+                        </div>
+                    </div>
+                    <div class="container 3">
+                        <div class="shape">
+                            <div class="f"></div>
+                            <div class="b"></div>
+                            <div class="l"></div>
+                            <div class="r"></div>
+                            <div class="t"></div>
+                            <div class="bot"></div>
+                        </div>
+                    </div>
+                    <div class="container 4">
+                        <div class="shape">
+                            <div class="f"></div>
+                            <div class="b"></div>
+                            <div class="l"></div>
+                            <div class="r"></div>
+                            <div class="t"></div>
+                            <div class="bot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <label for="comprimento">Valor do comprimento</label>
+        <input type="text" name="comprimento" id="comprimento" placeholder="0">
+        <label for="largura">Valor da Largura</label>
+        <input type="text" name="largura" id="largura" placeholder="0">
+        <label for="altura">Valor da altura</label>
+        <input type="text" name="altura" id="altura" placeholder="0">
+        <label for="resultado">Área do Cubóide</label>
+        <input type="text" disabled name="resultado" id="resultado" value="0">
+        <button id="calcular">Calcular</button>
+    </div>
+    <script>
+        const comprimento = document.getElementById("comprimento");
+        const largura = document.getElementById("largura");
+        const altura = document.getElementById("altura");
+        const resultado = document.getElementById("resultado");
+        const calcular = document.getElementById("calcular");
+        calcular.addEventListener("click", () => {
+            let comprimentoValor = parseFloat(comprimento.value), larguraValor = parseFloat(largura.value), alturaValor = parseFloat(altura.value);
+            if (isNaN(comprimentoValor) || isNaN(larguraValor) || isNaN(alturaValor)) {
+                alert("por favor adicione um numero")
+            } else {
+                resultado.value = 2 * alturaValor * larguraValor + 2 * larguraValor * comprimentoValor + 2 * alturaValor * comprimentoValor;
+            }
+        });
+    </script>
+</body>
+
+</html>

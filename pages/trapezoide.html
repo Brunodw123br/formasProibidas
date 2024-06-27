@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trapezio</title>
+    <style>
+        a {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            color: rgba(180, 40, 40, 0);
+        }
+
+        body {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .voltar {
+            background-color: rgb(180, 40, 40);
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .voltar span {
+            border: 2px solid #000;
+            width: 30px;
+            position: absolute;
+        }
+
+        .voltar span:nth-child(1) {
+            width: 15px;
+            transform: rotate(-25deg);
+            left: 15%;
+            top: 40%;
+        }
+
+        .voltar span:nth-child(2) {
+            width: 15px;
+            transform: rotate(25deg);
+            left: 15%;
+            bottom: 40%;
+        }
+
+        .containerForma {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+            gap: 20px;
+        }
+
+        .containerForma input {
+            width: 40%;
+            height: calc(2vh + 1.5vw);
+            border-radius: 30px;
+            padding: 0 0 0 1vw;
+        }
+
+        .containerForma label {
+            font-size: clamp(1rem, .7vh + 1vw, 2rem);
+        }
+
+        .containerForma button {
+            width: 40%;
+            height: calc(2vh + 1.5vw);
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .imagem {
+            position: relative;
+            height: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .containerForma .imagem img {
+            position: absolute;
+            width: 100px;
+            animation: crescerDiminuir 3s infinite ease-in-out;
+        }
+
+        @keyframes crescerDiminuir {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="../index.html">
+        a
+        <div class="voltar">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </a>
+    <div class="containerForma">
+        <h2>Soma da Área total do cubo</h2>
+        <div class="imagem">
+            <img src="../assets/img/trapezoide.png" alt="trapézio">
+        </div>
+        <label for="baseMaior">Base maior</label>
+        <input type="text" name="baseMaior" id="baseMaior" placeholder="0">
+        <label for="baseMenor">Base menor</label>
+        <input type="text" name="baseMenor" id="baseMenor" placeholder="0">
+        <label for="altura">Altura</label>
+        <input type="text" name="altura" id="altura" placeholder="0">
+        <label for="resultado">Resultado</label>
+        <input type="text" disabled name="resultado" id="resultado" value="0">
+        <button id="calcular">Calcular</button>
+    </div>
+    <script>
+        const baseMaior = document.getElementById("baseMaior");
+        const baseMenor = document.getElementById("baseMenor");
+        const altura = document.getElementById("altura");
+        const resultado = document.getElementById("resultado");
+        const calcular = document.getElementById("calcular");
+        calcular.addEventListener("click", () => {
+            let baseMaiorValor = parseFloat(baseMaior.value), baseMenorValor = parseFloat(baseMenor.value), alturaValor = parseFloat(altura.value);
+            if (isNaN(baseMaiorValor) || isNaN(baseMenorValor) || isNaN(alturaValor)) {
+                alert("por favor adicione um numero")
+            } else if (baseMaiorValor < baseMenorValor) {
+                alert("as bases estão invertidas")
+            } else {
+                resultado.value = (baseMaiorValor + baseMenorValor) * alturaValor / 2;
+            }
+        });
+    </script>
+</body>
+
+</html>

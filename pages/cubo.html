@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubo</title>
+    <style>
+        a {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            color: rgba(180, 40, 40, 0);
+        }
+
+        body {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .voltar {
+            background-color: rgb(180, 40, 40);
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .voltar span {
+            border: 2px solid #000;
+            width: 30px;
+            position: absolute;
+        }
+
+        .voltar span:nth-child(1) {
+            width: 15px;
+            transform: rotate(-25deg);
+            left: 15%;
+            top: 40%;
+        }
+
+        .voltar span:nth-child(2) {
+            width: 15px;
+            transform: rotate(25deg);
+            left: 15%;
+            bottom: 40%;
+        }
+
+        .containerForma {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+            gap: 20px;
+        }
+
+        .containerForma input {
+            width: 40%;
+            height: calc(2vh + 1.5vw);
+            border-radius: 30px;
+            padding: 0 0 0 1vw;
+        }
+
+        .containerForma label {
+            font-size: clamp(1rem, .7vh + 1vw, 2rem);
+        }
+
+        .containerForma button {
+            width: 40%;
+            height: calc(2vh + 1.5vw);
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .cube {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            transform: rotateX(-30deg);
+            animation: animateD 8s linear infinite;
+        }
+
+        @keyframes animateD {
+            0% {
+                transform: rotateX(-15deg) rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateX(-15deg) rotateY(-360deg);
+            }
+        }
+
+        .cube div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .cube2 {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            transform-style: preserve-3d;
+            animation: animateD2 5s ease-out infinite alternate;
+        }
+
+        @keyframes animateD2 {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateX(180deg) rotateY(-360deg);
+            }
+        }
+
+        .cube2 div {
+            position: absolute;
+            top: 35px;
+            left: 0;
+            width: 65%;
+            height: 65%;
+            transform-style: preserve-3d;
+        }
+
+        .cube2 div span {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 65%;
+            height: 65%;
+            background: transparent;
+            border: 2px solid #7dff99;
+            transform: rotateY(calc(90deg * var(--i))) translateZ(62px);
+        }
+
+        .cube3 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            transform: rotateX(-30deg);
+            animation: animateD3 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes animateD3 {
+            0% {
+                transform: rotateX(-90deg) rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateX(90deg) rotateY(45deg);
+            }
+        }
+
+        .cube3 div {
+            position: absolute;
+            top: 70px;
+            left: 70px;
+            width: 15%;
+            height: 15%;
+            transform-style: preserve-3d;
+        }
+
+        .cube3 div span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #7dff99;
+            transform: rotateY(calc(90deg * var(--i))) translateZ(14px);
+            box-shadow: 0px 0px 7px #7dff99;
+        }
+
+        .top3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #7dff99;
+            transform: rotateX(90deg) translateZ(14px);
+            box-shadow: 0px 0px 10px #7dff99;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="../index.html">
+        a
+        <div class="voltar">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </a>
+    <div class="containerForma">
+        <h2>Soma da Área total do cubo</h2>
+        <div class="imagem">
+            <div class="cube">
+                <div class="topD"></div>
+                <div>
+                    <span style="--i:0"></span>
+                    <span style="--i:1"></span>
+                    <span style="--i:2"></span>
+                    <span style="--i:3"></span>
+                </div>
+                <div class="cube2">
+                    <div>
+                        <span style="--i:0"></span>
+                        <span style="--i:1"></span>
+                        <span style="--i:2"></span>
+                        <span style="--i:3"></span>
+                    </div>
+                    <div class="cube3">
+                        <div class="top3"></div>
+                        <div>
+                            <span style="--i:0"></span>
+                            <span style="--i:1"></span>
+                            <span style="--i:2"></span>
+                            <span style="--i:3"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <label for="lado">Valor do lado do cubo</label>
+        <input type="text" name="lado" id="lado" placeholder="0">
+        <label for="resultado">Área do cubo</label>
+        <input type="text" disabled name="resultado" id="resultado" value="0">
+        <button id="calcular">Calcular</button>
+    </div>
+    <script>
+        const lado = document.getElementById("lado");
+        const resultado = document.getElementById("resultado");
+        const calcular = document.getElementById("calcular");
+        calcular.addEventListener("click", () => {
+            let ladoValor = parseFloat(lado.value);
+            if (isNaN(ladoValor)) {
+                alert("por favor adicione um numero")
+            } else {
+                resultado.value = parseFloat(lado.value) * parseFloat(lado.value) * 6;
+            }
+        });
+    </script>
+</body>
+
+</html>
